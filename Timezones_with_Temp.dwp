@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebPart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/WebPart/v2">
+  <Title>Time Zones with Temp v1.3</Title>
+  <FrameType>None</FrameType>
+  <Description>Use for formatted text, tables, and images.</Description>
+  <IsIncluded>true</IsIncluded>
+  <ZoneID>Left</ZoneID>
+  <PartOrder>1</PartOrder>
+  <FrameState>Normal</FrameState>
+  <Height />
+  <Width />
+  <AllowRemove>true</AllowRemove>
+  <AllowZoneChange>true</AllowZoneChange>
+  <AllowMinimize>true</AllowMinimize>
+  <AllowConnect>true</AllowConnect>
+  <AllowEdit>true</AllowEdit>
+  <AllowHide>true</AllowHide>
+  <IsVisible>true</IsVisible>
+  <DetailLink />
+  <HelpLink />
+  <HelpMode>Modeless</HelpMode>
+  <Dir>Default</Dir>
+  <PartImageSmall />
+  <MissingAssembly />
+  <PartImageLarge>/_layouts/images/mscontl.gif</PartImageLarge>
+  <IsIncludedFilter>'00000000-0000-0000-0000-000000000000'</IsIncludedFilter>
+  <Assembly>Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
+  <TypeName>Microsoft.SharePoint.WebPartPages.ContentEditorWebPart</TypeName>
+  <ContentLink xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor" />
+  <Content xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor"><![CDATA[<!--  Time Zones with Temp v1.3  -->
+
+<SCRIPT Language="JavaScript">
+function getGmtTime(GmtValue, ColumnValue){
+<!--------------------------------------------------------->
+<!--Created By:       Anthony L. Duguid-->
+<!--Created Date:     04/04/2006  12:30-->
+<!--Edited By:        Anthony L. Duguid-->
+<!--Edited Date:      02/20/2007  15:13-->
+<!--Purpose:          Return the time for the specified GMT "Greenwich Mean Time" value in the table-->
+<!--------------------------------------------------------->
+
+   //Find out if the GMT value uses daylight savings time 
+   var localTime = new Date(); 
+   // adjust for time zone 
+   var TimezoneOffset = GmtValue  
+   var ms = localTime.getTime()  
+              + (localTime.getTimezoneOffset() * 60000) 
+              + TimezoneOffset * 3600000 
+   var gmt =  new Date(ms);
+   var time =  new Date(ms);
+
+   // Beginning in 2007 and ending in 2015, Daylight Saving Time is extended one month:
+   // 2 a.m. on the Second Sunday in March
+   // to
+   // 2 a.m. on the First Sunday of November.
+   // ALD: for my code I start on 12am because it really doesn't matter
+   var lsm = new Date;
+   var lso = new Date;
+
+   lsm.setMonth(2); // March
+   lsm.setDate(1);  // set date to the first, sort of unnecessary default is always the first
+   var StartDte = 8;  // 03/08/20XX
+   if (lsm.getDay()!=0) StartDte = 15 - lsm.getDay();  // calculate the second Sunday from the first
+   lsm.setDate(StartDte);  // the second Sunday in March
+
+   lso.setMonth(10); //  November
+   lso.setDate(1);  // set date to the first, sort of unnecessary default is always the first
+   var EndDte = 1;  // 11/01/20XX
+   if (lso.getDay()!=0) EndDte = 8 - lso.getDay();  // calculate the first Sunday from the first
+   lso.setDate(EndDte);  // the first Sunday in November
+
+   var hour = time.getHours(); 
+   var minute = time.getMinutes(); 
+   var second = time.getSeconds(); 
+
+   if (gmt >= lsm && gmt <= lso)  //calculate daylight savings time
+   {
+   dst = 1 
+   }
+   else
+   {
+   dst = 0
+   }
+   //alert(dst);
+
+   hour += dst;
+   var curTime = "" + ((hour > 12) ? hour - 12 : hour)
+   if(hour==0) curTime = "12" 
+   curTime += ((minute < 10) ? ":0" : ":") + minute
+   curTime += ((second < 10) ? ":0" : ":") + second
+   curTime += (hour >= 12) ? " PM" : " AM" 
+   ColumnValue.innerHTML=curTime
+}
+</SCRIPT>
+
+<SCRIPT Language="JavaScript">
+function getGmtDate(GmtValue, ColumnValue){
+<!--------------------------------------------------------->
+<!--Created By:       Anthony L. Duguid-->
+<!--Created Date:     04/04/2006  12:30-->
+<!--Edited By:        Anthony L. Duguid-->
+<!--Edited Date:      04/05/2006  11:49-->
+<!--Purpose:          Return the time for the specified GMT "Greenwich Mean Time" value in the table-->
+<!--------------------------------------------------------->
+
+   //Find out if the GMT value uses daylight savings time 
+   var localTime = new Date(); 
+   // adjust for time zone 
+   var TimezoneOffset = GmtValue  
+   var ms = localTime.getTime()  
+              + (localTime.getTimezoneOffset() * 60000) 
+              + TimezoneOffset * 3600000 
+   var gmt =  new Date(ms)
+   var cDayT = new Array("Sun","Mon","Tue","Wed","Thu","Fri","Sat");
+
+   // Beginning in 2007 and ending in 2015, Daylight Saving Time is extended one month:
+   // 2 a.m. on the Second Sunday in March
+   // to
+   // 2 a.m. on the First Sunday of November.
+   // ALD: for my code I start on 12am because it really doesn't matter
+   var lsm = new Date;
+   var lso = new Date;
+
+   lsm.setMonth(2); // March
+   lsm.setDate(1);  // set date to the first, sort of unnecessary default is always the first
+   var StartDte = 8;  // 03/08/20XX
+   if (lsm.getDay()!=0) StartDte = 15 - lsm.getDay();  // calculate the second Sunday from the first
+   lsm.setDate(StartDte);  // the second Sunday in March
+
+   lso.setMonth(10); //  November
+   lso.setDate(1);  // set date to the first, sort of unnecessary default is always the first
+   var EndDte = 1;  // 11/01/20XX
+   if (lso.getDay()!=0) EndDte = 8 - lso.getDay();  // calculate the first Sunday from the first
+   lso.setDate(EndDte);  // the first Sunday in November
+
+   if (gmt >= lsm && gmt <= lso)  //calculate daylight savings time
+   {
+   dst = 1 
+   }
+   else
+   {
+   dst = 0
+   }
+   var time =  new Date(ms);
+   //alert(time)
+   var hour = time.getHours(); 
+   gmt.setHours(hour += dst);
+   //alert(gmt)
+   //create new date object & extract required values from them
+   var cYear = gmt.getYear();
+   if(cYear<1000)cYear += 1900;
+   var cMonth = gmt.getMonth()+1;
+   //var cMonth = cMonthT[gmt.getMonth()];
+   var cDay = cDayT[gmt.getDay()];
+   var cDate = gmt.getDate();
+
+   // Uncomment the next 2 lines of code to have leading zeros in the month and day
+   //cMonth = ((cMonth < 10) ? "0" : "") + cMonth 
+   //cDate = ((cDate < 10) ? "0" : "") + cDate 
+
+   //concatenate the various date contents
+   var myOutput = cDay + ", " + cMonth + "/" + cDate
+   ColumnValue.innerHTML=myOutput 
+   //ColumnValue.innerHTML=myOutput 
+   //document.write(curTime)
+}
+</SCRIPT>
+
+
+<!-- <center>  UNCOMMENT THIS LINE TO CENTER WEBPART -->
+<table width=800 border=1 CELLSPACING=1 CELLPADDING=2 BORDERCOLOR="DCDCDC">  
+<tbody>
+
+<!------------------------------ ROW 1 --------------------------------->
+
+<tr> 
+<td width="10%" BGCOLOR="#6699CC"><strong><CENTER><FONT SIZE="-3"><FONT COLOR="F0FFFF">
+<a id="text1" title="current weather for Bakersfield, California (GMT-08:00)" href="http://weather.yahoo.com/forecast/USCA0062_f.html" style="color: #F0FFFF">
+Los Angeles, CA</a>
+  <script type="text/javascript">
+    document.getElementById(text1)
+  </script>
+</FONT></CENTER></strong></td>
+<td width="10%" BGCOLOR="#6699CC"><strong><CENTER><FONT SIZE="-3"><FONT COLOR="F0FFFF">
+<a id="text2" title="current weather for Houston, Texas (GMT-06:00)" href="http://weather.yahoo.com/forecast/USTX0617_f.html" style="color: #F0FFFF">
+Houston, TX</a>
+  <script type="text/javascript">
+    document.getElementById(text2)
+  </script>
+</FONT></CENTER></strong></td>
+<td width="10%" BGCOLOR="#6699CC"><strong><CENTER><FONT SIZE="-3"><FONT COLOR="F0FFFF">
+<a id="text3" title="current weather for New York, New York (GMT-05:00)" href="http://weather.yahoo.com/forecast/USNY0996_f.html" style="color: #F0FFFF">
+New York, NY</a>
+  <script type="text/javascript">
+    document.getElementById(text3)
+  </script>
+</FONT></CENTER></strong></td>
+<td width="10%" BGCOLOR="#6699CC"><strong><CENTER><FONT SIZE="-3"><FONT COLOR="F0FFFF">
+<a id="text8" title="current weather for Lima, Peru (GMT-05:00)" href="http://weather.yahoo.com/forecast/PEXX0011_f.html" style="color: #F0FFFF">
+Lima, Peru</a>
+  <script type="text/javascript">
+    document.getElementById(text8)
+  </script>
+</FONT></CENTER></strong></td>
+<td width="10%" BGCOLOR="#6699CC"><strong><CENTER><FONT SIZE="-3"><FONT COLOR="F0FFFF">
+<a id="text4" title="current weather for Saint John, Newfoundland (GMT-03:30)" href="http://weather.yahoo.com/forecast/CAXX0420_f.html" style="color: #F0FFFF">
+Saint John, NF</a>
+  <script type="text/javascript">
+    document.getElementById(text4)
+  </script>
+</FONT></CENTER></strong></td>
+<td width="10%" BGCOLOR="#6699CC"><strong><CENTER><FONT SIZE="-3"><FONT COLOR="F0FFFF">
+<a id="text5" title="current weather for Aberdeen, United Kingdom (GMT)" href="http://weather.yahoo.com/forecast/UKXX0001_f.html" style="color: #F0FFFF">
+Aberdeen, UK</a>
+  <script type="text/javascript">
+    document.getElementById(text5)
+  </script>
+</FONT></CENTER></strong></td>
+<td width="10%" BGCOLOR="#6699CC"><strong><CENTER><FONT SIZE="-3"><FONT COLOR="F0FFFF">
+<a id="text6" title="current weather for Doha, Qatar (GMT+03:00)" href="http://weather.yahoo.com/forecast/QAXX0003_f.html" style="color: #F0FFFF">
+Doha, Qatar</a>
+  <script type="text/javascript">
+    document.getElementById(text6)
+  </script>
+</FONT></CENTER></strong></td>
+<td width="10%" BGCOLOR="#6699CC"><strong><CENTER><FONT SIZE="-3"><FONT COLOR="F0FFFF">
+<a id="text7" title="current weather for Muscat, Oman (GMT+04:00)" href="http://weather.yahoo.com/forecast/MUXX0003_f.html" style="color: #F0FFFF">
+Muscat, Oman</a>
+  <script type="text/javascript">
+    document.getElementById(text7)
+  </script>
+</FONT></CENTER></strong></td>
+</tr> 
+
+<!------------------------------ ROW 2 --------------------------------->
+
+<td BGCOLOR="#F0F8FF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick10>  
+
+<script>
+ if (document.all)
+ setInterval("getGmtDate(-8, tick10)",1000) //California
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+<td BGCOLOR="#F0F8FF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick11>
+
+<script>
+ if (document.all)
+ setInterval("getGmtDate(-6, tick11)",1000) //Texas
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+<td BGCOLOR="#F0F8FF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick12>
+
+<script>
+ if (document.all)
+ setInterval("getGmtDate(-5, tick12)",1000) //New York
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+<td BGCOLOR="#F0F8FF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick17>
+
+<script>
+ if (document.all)
+ setInterval("getGmtDate(-5, tick17)",1000) //Peru
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+<td BGCOLOR="#F0F8FF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick13>
+
+<script>
+ if (document.all)
+ setInterval("getGmtDate(-3.5, tick13)",1000) //St. John
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+<td BGCOLOR="#F0F8FF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick14>
+
+<script>
+ if (document.all)
+ setInterval("getGmtDate(0, tick14)",1000) //London
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+<td BGCOLOR="#F0F8FF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick16>
+
+<script>
+ if (document.all)
+ setInterval("getGmtDate(3, tick16)",1000) //Doha, Qatar
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+<td BGCOLOR="#F0F8FF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick15>
+
+<script>
+ if (document.all)
+ setInterval("getGmtDate(4, tick15)",1000) //Oman
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+</tr>
+
+<!------------------------------ ROW 3 --------------------------------->
+
+<td BGCOLOR="#FFFFFF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick30>  
+<script>
+ if (document.all)
+ setInterval("getGmtTime(-8, tick30)",1000) //California
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+<td BGCOLOR="#FFFFFF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick31>
+
+<script>
+ if (document.all)
+ setInterval("getGmtTime(-6, tick31)",1000) //Texas
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+<td BGCOLOR="#FFFFFF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick32>
+
+<script>
+ if (document.all)
+ setInterval("getGmtTime(-5, tick32)",1000) //New York
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+<td BGCOLOR="#FFFFFF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick37>
+<script>
+ if (document.all)
+ setInterval("getGmtTime(-5, tick37)",1000) //Peru
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+<td BGCOLOR="#FFFFFF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick33>
+
+<script>
+ if (document.all)
+ setInterval("getGmtTime(-3.5, tick33)",1000) //St. John
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+<td BGCOLOR="#FFFFFF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick34>
+
+<script>
+ if (document.all)
+ setInterval("getGmtTime(0, tick34)",1000) //London
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+<td BGCOLOR="#FFFFFF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick36>
+
+<script>
+ if (document.all)
+ setInterval("getGmtTime(3, tick36)",1000) //Doha, Qatar
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+<td BGCOLOR="#FFFFFF"><CENTER><FONT SIZE="-3"><FONT COLOR="696969"><span id=tick35>
+
+<script>
+ if (document.all)
+ setInterval("getGmtTime(4, tick35)",1000) //Oman
+</SCRIPT>
+
+</span></FONT></CENTER></td>
+</tr></tbody></table></center>]]></Content>
+  <PartStorage xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor" />
+</WebPart>

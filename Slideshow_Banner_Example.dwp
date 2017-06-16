@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebPart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/WebPart/v2">
+  <Title>Slideshow_Banner_Example_v1.0</Title>
+  <FrameType>None</FrameType>
+  <Description>To display a rotating banner</Description>
+  <IsIncluded>true</IsIncluded>
+  <ZoneID>Right</ZoneID>
+  <PartOrder>2</PartOrder>
+  <FrameState>Normal</FrameState>
+  <Height />
+  <Width />
+  <AllowRemove>true</AllowRemove>
+  <AllowZoneChange>true</AllowZoneChange>
+  <AllowMinimize>true</AllowMinimize>
+  <AllowConnect>true</AllowConnect>
+  <AllowEdit>true</AllowEdit>
+  <AllowHide>true</AllowHide>
+  <IsVisible>true</IsVisible>
+  <DetailLink />
+  <HelpLink />
+  <HelpMode>Modeless</HelpMode>
+  <Dir>Default</Dir>
+  <PartImageSmall />
+  <MissingAssembly>Cannot import this Web Part.</MissingAssembly>
+  <PartImageLarge>/_layouts/images/mscontl.gif</PartImageLarge>
+  <IsIncludedFilter />
+  <Assembly>Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
+  <TypeName>Microsoft.SharePoint.WebPartPages.ContentEditorWebPart</TypeName>
+  <ContentLink xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor" />
+  <Content xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor"><![CDATA[<script language="JavaScript1.2">
+
+//Drop-in slideshow II (hyperlinked)- By Dynamic Drive
+//For full source code and more DHTML scripts, visit http://www.dynamicdrive.com
+//This credit MUST stay intact for use
+
+var slideshow_width='400px' //SET SLIDESHOW WIDTH (set to largest image's width if multiple dimensions exist)
+var slideshow_height='200px' //SET SLIDESHOW HEIGHT (set to largest image's height if multiple dimensions exist)
+var pause=3000 //SET PAUSE BETWEEN SLIDE (2000=2 seconds)
+
+var dropimages=new Array()
+//SET IMAGE PATHS. Extend or contract array as needed
+
+dropimages[0]="./Service Delivery/System Admin/SharePoint/Webparts/Slideshow_Banner_Example0.png"
+dropimages[1]="./Service Delivery/System Admin/SharePoint/Webparts/Slideshow_Banner_Example1.png"
+dropimages[2]="./Service Delivery/System Admin/SharePoint/Webparts/Slideshow_Banner_Example2.png"
+dropimages[3]="./Service Delivery/System Admin/SharePoint/Webparts/Slideshow_Banner_Example3.png"
+dropimages[4]="./Service Delivery/System Admin/SharePoint/Webparts/Slideshow_Banner_Example4.png"
+dropimages[5]="./Service Delivery/System Admin/SharePoint/Webparts/Slideshow_Banner_Example5.png"
+dropimages[6]="./Service Delivery/System Admin/SharePoint/Webparts/Slideshow_Banner_Example6.png"
+
+var droplinks=new Array()
+//SET IMAGE URLs. Extend or contract array as needed
+droplinks[0]="http://apac-reporting-services.woodgroup.com/Reports/Pages/Folder.aspx"
+
+
+////NO need to edit beyond here/////////////
+
+var preloadedimages=new Array()
+for (p=0;p<dropimages.length;p++){
+preloadedimages[p]=new Image()
+preloadedimages[p].src=dropimages[p]
+}
+
+var ie4=document.all
+var dom=document.getElementById
+
+if (ie4||dom)
+document.write('<div style="position:relative;width:'+slideshow_width+';height:'+slideshow_height+';overflow:hidden"><div id="canvas0" style="position:absolute;width:'+slideshow_width+';height:'+slideshow_height+';top:-'+slideshow_height+'"></div><div id="canvas1" style="position:absolute;width:'+slideshow_width+';height:'+slideshow_height+';top:-'+slideshow_height+'"></div></div>')
+else
+document.write('<a href="javascript:rotatelink()"><img name="defaultslide" src="'+dropimages[0]+'" border=0></a>')
+
+var curpos=parseInt(slideshow_height)*(-1)
+var degree=10
+var curcanvas="canvas0"
+var curimageindex=0
+var nextimageindex=1
+
+
+function movepic(){
+if (curpos<0){
+curpos=Math.min(curpos+degree,0)
+tempobj.style.top=curpos+"px"
+}
+else{
+clearInterval(dropslide)
+nextcanvas=(curcanvas=="canvas0")? "canvas0" : "canvas1"
+tempobj=ie4? eval("document.all."+nextcanvas) : document.getElementById(nextcanvas)
+tempobj.innerHTML='<a href="'+droplinks[curimageindex]+'"><img src="'+dropimages[curimageindex]+'" border=0></a>'
+nextimageindex=(nextimageindex<dropimages.length-1)? nextimageindex+1 : 0
+setTimeout("rotateimage()",pause)
+}
+}
+
+function rotateimage(){
+if (ie4||dom){
+resetit(curcanvas)
+var crossobj=tempobj=ie4? eval("document.all."+curcanvas) : document.getElementById(curcanvas)
+crossobj.style.zIndex++
+var temp='setInterval("movepic()",50)'
+dropslide=eval(temp)
+curcanvas=(curcanvas=="canvas0")? "canvas1" : "canvas0"
+}
+else
+document.images.defaultslide.src=dropimages[curimageindex]
+linkindex=curimageindex
+curimageindex=(curimageindex<dropimages.length-1)? curimageindex+1 : 0
+}
+
+function rotatelink(){
+window.location=droplinks[linkindex]
+}
+
+function resetit(what){
+curpos=parseInt(slideshow_height)*(-1)
+var crossobj=ie4? eval("document.all."+what) : document.getElementById(what)
+crossobj.style.top=curpos+"px"
+}
+
+function startit(){
+var crossobj=ie4? eval("document.all."+curcanvas) : document.getElementById(curcanvas)
+crossobj.innerHTML='<a href="'+droplinks[curimageindex]+'"><img src="'+dropimages[curimageindex]+'" border=0></a>'
+rotateimage()
+}
+
+if (ie4||dom)
+window.onload=startit
+else
+setInterval("rotateimage()",pause)
+
+</script>]]></Content>
+  <PartStorage xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor" />
+</WebPart>
