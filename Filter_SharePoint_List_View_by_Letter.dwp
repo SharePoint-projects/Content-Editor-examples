@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebPart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/WebPart/v2">
+  <Title>Filter List View by Letter</Title>
+  <FrameType>TitleBarOnly</FrameType>
+  <Description>Use for formatted text, tables, and images.</Description>
+  <IsIncluded>true</IsIncluded>
+  <ZoneID>Right</ZoneID>
+  <PartOrder>0</PartOrder>
+  <FrameState>Normal</FrameState>
+  <Height />
+  <Width />
+  <AllowRemove>false</AllowRemove>
+  <AllowZoneChange>false</AllowZoneChange>
+  <AllowMinimize>false</AllowMinimize>
+  <AllowConnect>true</AllowConnect>
+  <AllowEdit>true</AllowEdit>
+  <AllowHide>false</AllowHide>
+  <IsVisible>true</IsVisible>
+  <DetailLink />
+  <HelpLink />
+  <HelpMode>Modeless</HelpMode>
+  <Dir>Default</Dir>
+  <PartImageSmall />
+  <MissingAssembly>Cannot import this Web Part.</MissingAssembly>
+  <PartImageLarge>/_layouts/images/mscontl.gif</PartImageLarge>
+  <IsIncludedFilter />
+  <Assembly>Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
+  <TypeName>Microsoft.SharePoint.WebPartPages.ContentEditorWebPart</TypeName>
+  <ContentLink xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor" />
+  <Content xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor"><![CDATA[<script type="text/javascript">  
+/*
+|-----------------------------------------------------------
+| Purpose:              Alphabetical List View Quick Filter 
+| Requirements:         add a calculated column to the document view "=LEFT(Title)" name it "FL"
+| Source:               http://www.sharepointboris.net/articles/the-power-of-content-editor-webpart/5-alphabetical-list-view-quick-filter/
+|-----------------------------------------------------------
+*/
+
+     function qs(paramName) {  
+         var args = document.location.search.substring(1).split("&");  
+         for(j = 0; j < args.length; j++) {  
+             nameValues = args[j].split("=");  
+             if(nameValues[0] == paramName) return nameValues[1];  
+         }  
+         return null;  
+     }  
+ 
+     var filterField = "FL";  
+     var filterValuesDelimiter = " - ";  
+     var selectedValueStyle = "border: 1px black solid";  
+     var filterDivStyle = "margin: 5px; font-size: 11px;";
+     var filterValues = new Array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");  
+     var filterLinks = new Array();  
+ 	  for (var i = 0; i < filterValues.length; i++) 
+              {filterLinks.push("<a " + (qs("FilterValue1") == filterValues[i] ? "style=\"" 
+               + selectedValueStyle + "\" " : "") 
+               + "href=\"" + document.location.pathname 
+               + "?FilterField1=" 
+               + filterField 
+               + "&FilterValue1=" 
+               + filterValues[i] 
+               + "\">" + filterValues[i] + "</a>");  
+               }  
+               document.write("<div style=\"" + filterDivStyle + "\">" + filterLinks.join(filterValuesDelimiter) + "</div>");  
+</script>  ]]></Content>
+  <PartStorage xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor" />
+</WebPart>
