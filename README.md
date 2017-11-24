@@ -1,3 +1,5 @@
+<img align="left" src="Images/ReadMe/App.png" width="64px" >
+
 # SharePoint Webparts
 Various content editor Webparts I've used in SharePoint
 
