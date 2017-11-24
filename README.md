@@ -3,6 +3,8 @@
 # SharePoint Webparts
 Various content editor Webparts I've used in SharePoint
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE "MIT License Copyright © 2017 Anthony Duguid")
+
 ## Example Webparts
 * [Filter_SharePoint_List_View_by_Letter](Filter_SharePoint_List_View_by_Letter.dwp)
 * [Slideshow_Banner_Example](Slideshow_Banner_Example.dwp)
