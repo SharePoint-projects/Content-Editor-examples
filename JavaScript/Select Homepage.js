@@ -1,0 +1,1 @@
+<a class="chlnk" style="cursor:hand" HREF onClick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://elkhills.oxy.com/');">Click here to make this your default homepage</a>
