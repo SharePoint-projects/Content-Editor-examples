@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebPart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/WebPart/v2">
+  <Title>ToolBar Example</Title>
+  <FrameType>Default</FrameType>
+  <Description>Use for formatted text, tables, and images.</Description>
+  <IsIncluded>true</IsIncluded>
+  <ZoneID>Left</ZoneID>
+  <PartOrder>1</PartOrder>
+  <FrameState>Normal</FrameState>
+  <Height />
+  <Width />
+  <AllowRemove>true</AllowRemove>
+  <AllowZoneChange>true</AllowZoneChange>
+  <AllowMinimize>true</AllowMinimize>
+  <AllowConnect>true</AllowConnect>
+  <AllowEdit>true</AllowEdit>
+  <AllowHide>true</AllowHide>
+  <IsVisible>true</IsVisible>
+  <DetailLink />
+  <HelpLink />
+  <HelpMode>Modeless</HelpMode>
+  <Dir>Default</Dir>
+  <PartImageSmall />
+  <MissingAssembly />
+  <PartImageLarge>/_layouts/images/mscontl.gif</PartImageLarge>
+  <IsIncludedFilter />
+  <Assembly>Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
+  <TypeName>Microsoft.SharePoint.WebPartPages.ContentEditorWebPart</TypeName>
+  <ContentLink xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor" />
+  <Content xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor"><![CDATA[<script>
+/*  
+ *  The SharePoint Page ToolBar Web Part v1.1
+ *
+ *  Created by James@Milne.com 25/4/05
+ *
+ *  This web part can be freely used, as long as it is not sold 
+ *  or any charges are paid for its use or installation.
+ *
+ *  Copyright 2005
+ *
+ */
+var VerticalOrientation=false;
+
+</script>
+
+<style>
+
+.oButton a:hover
+{
+	border: solid 1px #000084;
+	background-image: url("/_layouts/images/rtebnhov.gif");
+	background-repeat: repeat-x;
+	background-color: #fddd98;
+	cursor: hand;
+	padding:2px; 
+	text-decoration: none;
+}
+
+
+.oButton {
+	padding:3px; 
+	font-family:Verdana; 
+	font-size:10px;
+	height: 22
+}
+
+</style>
+<script language="javascript">
+
+function PrintPreview() 
+{
+    var sURL=document.location.href;
+	if (sURL.indexOf('?') >0) {
+	    sURL=document.location+"&PrintPreview";}
+	else {
+	    sURL=document.location+"?PrintPreview";}
+	
+	window.open(sURL);
+	
+}
+
+function AlertMe() 
+{
+	//diidSubscribeButton for TeamSites.
+	var AlertLink = document.getElementById("diidSubscribeButton");
+	if (AlertLink==null) 
+		AlertLink = document.getElementById("TBBSubscribeCategory");
+	if (AlertLink!=null) 
+		document.location=AlertLink;
+	else 
+		alert("The 'Alert Me' feature is not available on this page.");
+
+}
+
+function AddToMyLinks() 
+{
+	//diidPinToMyPage for TeamSites.
+	var MyLinks = document.getElementById("diidPinToMyPage");
+	if (MyLinks==null)
+		MyLinks= document.getElementById("TBBPin");
+	
+	if (MyLinks!=null)
+		eval(unescape(MyLinks.href));
+	else
+		alert("The 'Add to my links' feature is not available on this page.");
+}
+
+function EmailPage()
+{
+	window.navigate("mailto:%20?subject=Have a look at this page..&body=<" + document.location.href + ">");
+}
+
+function AddToFavorites()
+{
+	window.external.AddFavorite(document.location.href,document.title);
+}
+
+function Comments()
+{
+	// You could redirect this to a Survey or some other page.
+	window.navigate("mailto:Jame"+"s@Mi"+"lne.com?subject=Feedback on Web Page..&body=I would like to give feedback on this page <" + document.location.href + ">");
+
+}
+
+// If we are in Print Preview Mode then Hide a bunch of styles.
+if (document.location.href.indexOf('PrintPreview') >0) {
+	document.write('<style>');
+	document.write('.jm-toolbar, .ms-navframe,.ms-bannerframe,.ms-sbtable,.ms-searchform,.ms-sbtopcorner,.ms-sblbcorner { display: none; } ');
+	document.write('div.ms-titleareaframe { border-top: 0px white solid; } ');
+	document.write('</style>');
+	print();
+}
+
+function ShowStatus(Msg) {
+	window.status=Msg;
+	return true;
+}
+
+</script>
+
+<table border="0" width="100%" height="25" cellpadding=0 cellspacing=0 class="ms-toolbar jm-toolbar">
+	<tr>
+		<td valign=middle>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td >
+						<span class="oButton" ><a href="#" onclick="PrintPreview();" class="oButton" onmouseover="return ShowStatus('Print Preview');"><img src="/_layouts/images/fax.GIF" border="0" align=absmiddle> Print Version</a></span>
+					</td>
+<script>
+if (VerticalOrientation) document.write("</tr><tr>");
+</script>
+					<td >
+						<span class="oButton"><a href="#" onclick="EmailPage();" class="oButton" onmouseover="return ShowStatus('Email this Page to a Friend');"><img src="/_layouts/images/gmailnew.GIF" border="0" align=absmiddle> Email Page</a></span>
+					</td>
+<script>
+if (VerticalOrientation) document.write("</tr><tr>");
+</script>
+					<td >
+						<span class="oButton"><a href="#" onclick="AddToFavorites();" class="oButton" onmouseover="return ShowStatus('Add this Page to Your Favorites');"><img src="/_layouts/images/star.GIF" border="0" align=absmiddle> Add to Favorites</a></span>
+					</td>
+<script>
+if (VerticalOrientation) document.write("</tr><tr>");
+</script>
+					<td >
+						<span class="oButton"><a href="#" onclick="Comments();" class="oButton" onmouseover="return ShowStatus('Add Comments to this Page');"><img src="/_layouts/images/Keyword.gif" border="0" align=absmiddle> Comments</a></span>
+					</td>
+<script>
+if (VerticalOrientation) document.write("</tr><tr>");
+</script>
+					<td >
+						<span class="oButton"><a href="#" onclick="AlertMe();" class="oButton" onmouseover="return ShowStatus('Place an Alert on this page');"><img src="/_layouts/images/grefresh.GIF" border="0" align=absmiddle> Alert Me</a></span>		
+					</td>
+<script>
+if (VerticalOrientation) document.write("</tr><tr>");
+</script>
+					<td >
+						<span class="oButton"><a href="#" onclick="AddToMyLinks();" class="oButton" onmouseover="return ShowStatus('Add this page to My Links');"><img src="/_layouts/images/ReLink.GIF" border="0" align=absmiddle> Add to My Links</a></span>		
+					</td>
+<script>
+if (VerticalOrientation) document.write("</tr><tr>");
+</script>
+					<td >
+						<span class="oButton"><a href="#" onclick="AddToMyLinks();" class="oButton" onmouseover="return ShowStatus('Description Here');"><img src="/_layouts/images/ReLink.GIF" border="0" align=absmiddle> Email Helpdesk</a></span>		
+					</td>
+
+
+				</tr>
+			</table>				
+		</td>
+	</tr>
+</table>
+
+]]></Content>
+  <PartStorage xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor" />
+</WebPart>

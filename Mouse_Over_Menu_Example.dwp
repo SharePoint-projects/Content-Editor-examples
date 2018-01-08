@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebPart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/WebPart/v2">
+  <Title>Mouse Over Menu Example</Title>
+  <FrameType>TitleBarOnly</FrameType>
+  <Description>Use for formatted text, tables, and images.</Description>
+  <IsIncluded>true</IsIncluded>
+  <ZoneID>Right</ZoneID>
+  <PartOrder>1</PartOrder>
+  <FrameState>Normal</FrameState>
+  <Height />
+  <Width>225px</Width>
+  <AllowRemove>true</AllowRemove>
+  <AllowZoneChange>true</AllowZoneChange>
+  <AllowMinimize>true</AllowMinimize>
+  <AllowConnect>true</AllowConnect>
+  <AllowEdit>true</AllowEdit>
+  <AllowHide>true</AllowHide>
+  <IsVisible>true</IsVisible>
+  <DetailLink />
+  <HelpLink />
+  <HelpMode>Modeless</HelpMode>
+  <Dir>Default</Dir>
+  <PartImageSmall />
+  <MissingAssembly />
+  <PartImageLarge>/_layouts/images/mscontl.gif</PartImageLarge>
+  <IsIncludedFilter />
+  <Assembly>Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
+  <TypeName>Microsoft.SharePoint.WebPartPages.ContentEditorWebPart</TypeName>
+  <ContentLink xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor" />
+  <Content xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor"><![CDATA[<menu id="menu_WPQ_" class="ms-SrvMenuUI"></menu>
+
+<SPAN class="ms-HoverCellInActive"
+
+      style="CURSOR: hand"
+
+      onmouseover="MainMenu(this);"
+
+      onmouseout="this.className='ms-HoverCellInActive'"
+
+      nowrap valign="bottom"
+
+> 
+
+<IMG SRC="/_layouts/images/Menu1.gif" border="0" />
+
+</SPAN>
+
+ 
+
+<script type="Text/JavaScript" language="JavaScript">
+
+// Generate dynamic menu example
+
+// todd@mindsharp.com  MindsharpBlogs.com/Todd
+
+// CopyRight © 2006, All Rights Reserved
+
+// Last updated 03/24/2006
+
+// Please don't delete this header
+
+ 
+
+var IMG_PATH = "/_layouts/images/";
+
+var SEP = ", ";
+
+ 
+
+var menu = document.getElementById("menu_WPQ_");
+
+ 
+
+function MainMenu(span)
+
+{
+
+  try
+
+  {
+
+    this.className = "ms-HoverCellActiveDark";
+
+   
+
+    var options = new Array(8);
+
+    options[0] = "http://www.altavista.com, AltaVista";
+
+    options[1] = "http://web.ask.com, Ask";
+
+    options[2] = "http://www.google.com, Google";
+
+    options[3] = "http://www.hotbot.com, HotBot";
+
+    options[4] = "http://search.lycos.com, Lycos";
+
+    options[5] = "http://search.msn.com, MSN";
+
+    options[6] = "http://www.search.com, CNet";
+
+    options[7] = "http://search.yahoo.com, Yahoo!";
+
+ 
+
+    //Define a WSS dynamic smart menu
+
+    if(menu)
+
+    {
+
+      //Add an option
+
+      CAMOpt(menu, "option1",
+
+        "document.location.href=\"http://wss1\";",
+
+        IMG_PATH + "aca16.gif", "Menu tooltip is broken");
+
+ 
+
+      //Add a Seperator
+
+      CAMSep(menu);
+
+ 
+
+      //Add a submenu with two options
+
+      var opts = CASubM(menu, "More Options",
+
+        IMG_PATH + "active.gif", "submenu tooltip also broken");
+
+ 
+
+      var opts11 = CASubM(opts, "Option 1.1",
+
+        IMG_PATH + "acl16.gif", "");
+
+      CAMOpt(opts, "Option 1.2",
+
+        "document.location.href=\"http://sps1\";",
+
+        IMG_PATH + "acl16.gif", "");
+
+ 
+
+      for(var i=0; i<options.length; i++)
+
+      {
+
+        option = options[i].split(SEP);
+
+        optionUrl = option[0];
+
+        optionName = option[1];
+
+ 
+
+        CAMOpt(opts11, optionName,
+
+        "document.location.href=\"" + optionUrl + "\";","", "");
+
+      }
+
+    }
+
+ 
+
+    OMenuInt(menu_WPQ_, span, 0, 0, 0);
+
+  }
+
+  catch(e)
+
+  {
+
+    alert(e.Message);
+
+  }
+
+}
+
+</script>]]></Content>
+  <PartStorage xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor" />
+</WebPart>

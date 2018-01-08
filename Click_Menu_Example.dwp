@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebPart xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/WebPart/v2">
+  <Title>Click Menu Example</Title>
+  <FrameType>TitleBarOnly</FrameType>
+  <Description>Use for formatted text, tables, and images.</Description>
+  <IsIncluded>true</IsIncluded>
+  <ZoneID>Right</ZoneID>
+  <PartOrder>2</PartOrder>
+  <FrameState>Normal</FrameState>
+  <Height />
+  <Width>225px</Width>
+  <AllowRemove>true</AllowRemove>
+  <AllowZoneChange>true</AllowZoneChange>
+  <AllowMinimize>true</AllowMinimize>
+  <AllowConnect>true</AllowConnect>
+  <AllowEdit>true</AllowEdit>
+  <AllowHide>true</AllowHide>
+  <IsVisible>true</IsVisible>
+  <DetailLink />
+  <HelpLink />
+  <HelpMode>Modeless</HelpMode>
+  <Dir>Default</Dir>
+  <PartImageSmall />
+  <MissingAssembly />
+  <PartImageLarge>/_layouts/images/mscontl.gif</PartImageLarge>
+  <IsIncludedFilter />
+  <Assembly>Microsoft.SharePoint, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c</Assembly>
+  <TypeName>Microsoft.SharePoint.WebPartPages.ContentEditorWebPart</TypeName>
+  <ContentLink xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor" />
+  <Content xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor"><![CDATA[<style>
+
+.ms-SrvMenuUI
+
+{
+
+    display:none;
+
+}
+
+.ms-HoverCellInActive
+
+{
+
+    border: none;
+
+    margin: 1px;
+
+    background-color: transparent;
+
+}
+
+.ms-HoverCellActive
+
+{
+
+    border: #f4c660 1px solid;
+
+    background-color: #e1ecfc;
+
+}
+
+</style>
+
+ 
+
+<menu id="myLinks" class="ms-SrvMenuUI">
+
+  <ie:menuitem
+
+   iconSrc="http://www.highdots.com/website-ranking-checker/images/search_engines/google.gif"
+
+   onMenuClick="window.location.href='http://google.com';"
+
+  >Google</ie:menuitem>
+
+  <ie:menuitem
+
+   iconSrc="http://www.highdots.com/website-ranking-checker/images/search_engines/msn.gif"
+
+   onMenuClick="window.location.href='http://msn.com';"
+
+  >MSN</ie:menuitem>
+
+  <ie:menuitem
+
+   iconSrc="http://www.highdots.com/website-ranking-checker/images/search_engines/altavista.gif"
+
+   onMenuClick="window.location.href='http://Altavista.com';"
+
+  >Altavista</ie:menuitem>
+
+  <ie:menuitem
+
+   iconSrc="http://www.highdots.com/website-ranking-checker/images/search_engines/ask.gif"
+
+   onMenuClick="window.location.href='http://Ask.com';"
+
+  >Ask</ie:menuitem>
+
+  <ie:menuitem
+
+   iconSrc="http://www.highdots.com/website-ranking-checker/images/search_engines/hotbot.gif"
+
+   onMenuClick="window.location.href='http://HotBot.com';"
+
+  >HotBot</ie:menuitem>
+
+  <ie:menuitem
+
+   iconSrc="http://www.highdots.com/website-ranking-checker/images/search_engines/lycos.gif"
+
+   onMenuClick="window.location.href='http://Lycos.com';"
+
+  >Lycos</ie:menuitem>
+
+  <ie:menuitem
+
+   iconSrc="http://www.highdots.com/website-ranking-checker/images/search_engines/search_com.gif"
+
+   onMenuClick="window.location.href='http://Search.com';"
+
+  >Search.com</ie:menuitem>
+
+  <ie:menuitem
+
+   iconSrc="http://www.highdots.com/website-ranking-checker/images/search_engines/yahoo.gif"
+
+   onMenuClick="window.location.href='http://Yahoo.com';"
+
+  >Yahoo!</ie:menuitem>
+
+</menu>
+
+<div class="ms-HoverCellInActive"
+
+  onmouseover="this.className='ms-HoverCellActive'"
+
+  onmouseout="this.className='ms-HoverCellInActive'">
+
+  <a id="menuLink"
+
+    style="CURSOR: hand"
+
+    onclick="JavaScript: if(!myLinks.isOpen())
+
+      myLinks.show(this, true, 0, 0, 0);"
+
+    tabindex="0">
+
+    Search Engines
+
+  </a>
+
+</div>]]></Content>
+  <PartStorage xmlns="http://schemas.microsoft.com/WebPart/v2/ContentEditor" />
+</WebPart>
