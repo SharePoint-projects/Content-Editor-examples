@@ -10,5 +10,5 @@ Various content editor Webparts I've used in SharePoint
 * [Slideshow_Banner_Example](Slideshow_Banner_Example.dwp)
 * [Timezones_with_Temp](Timezones_with_Temp.dwp)
 <h1 align="left">
-  <img src="Images/sharepointwebparttimezoneweatherhyperlink.png" alt="sharepointwebparttimezoneweatherhyperlink" />
+  <img src="Images/ReadMe/sharepointwebparttimezoneweatherhyperlink.gif" />
 </h1>
