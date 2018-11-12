@@ -12,3 +12,4 @@ Various content editor Webparts I've used in SharePoint
 <h1 align="left">
   <img src="Images/ReadMe/sharepointwebparttimezoneweatherhyperlink.gif" />
 </h1>
+
