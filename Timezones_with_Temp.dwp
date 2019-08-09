@@ -32,10 +32,10 @@
 <SCRIPT Language="JavaScript">
 function getGmtTime(GmtValue, ColumnValue){
 <!--------------------------------------------------------->
-<!--Created By:       Anthony L. Duguid-->
-<!--Created Date:     04/04/2006  12:30-->
-<!--Edited By:        Anthony L. Duguid-->
-<!--Edited Date:      02/20/2007  15:13-->
+
+
+
+
 <!--Purpose:          Return the time for the specified GMT "Greenwich Mean Time" value in the table-->
 <!--------------------------------------------------------->
 
